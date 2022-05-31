@@ -1,12 +1,20 @@
 <template>
   <div class="result">
-    <div class="title">You got sample result 1!</div>
-    <div class="desc">Enter a short description here about the result.</div>
+    <div class="title">{{ results[getIndex].title }}</div>
+    <div class="desc">{{ results[getIndex].desc }}</div>
   </div>
 </template>
 
 <script>
 export default {
   name: "Result",
+  props: ["results", "totalCorrect"],
+  computed: {
+    getIndex() {
+      if (this.totalCorrect >= 3) return 1;
+
+      return 0;
+    },
+  },
 };
 </script>

@@ -1,3 +1,20 @@
+<template>
+  <div class="ctr">
+    <transition name="fade">
+      <questions
+        v-if="questionsAnswered < questions.length"
+        :questions="questions"
+        :questionsAnswered="questionsAnswered"
+        @answer-selected="handleAnswer"
+      />
+      <result v-else :results="results" :totalCorrect="totalCorrect" />
+    </transition>
+    <button type="button" class="reset-btn" @click.prevent="handleReset">
+      Reset
+    </button>
+  </div>
+</template>
+
 <script lang="ts">
 import Questions from "./components/Questions.vue";
 import Result from "./components/Result.vue";
@@ -97,19 +114,10 @@ export default {
 
       this.questionsAnswered++;
     },
+    handleReset() {
+      this.questionsAnswered = 0;
+      this.totalCorrect = 0;
+    },
   },
 };
 </script>
-
-<template>
-  <div class="ctr">
-    <questions
-      v-if="questionsAnswered < questions.length"
-      :questions="questions"
-      :questionsAnswered="questionsAnswered"
-      @answer-selected="handleAnswer"
-    />
-    <result v-else />
-    <button type="button" class="reset-btn">Reset</button>
-  </div>
-</template>
