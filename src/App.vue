@@ -11,6 +11,7 @@ export default {
   data() {
     return {
       questionsAnswered: 0,
+      totalCorrect: 0,
       questions: [
         {
           q: "What is 2 + 2?",
@@ -88,6 +89,15 @@ export default {
       ],
     };
   },
+  methods: {
+    handleAnswer(is_correct: boolean) {
+      if (is_correct) {
+        this.totalCorrect++;
+      }
+
+      this.questionsAnswered++;
+    },
+  },
 };
 </script>
 
@@ -96,6 +106,8 @@ export default {
     <questions
       v-if="questionsAnswered < questions.length"
       :questions="questions"
+      :questionsAnswered="questionsAnswered"
+      @answer-selected="handleAnswer"
     />
     <result v-else />
     <button type="button" class="reset-btn">Reset</button>
